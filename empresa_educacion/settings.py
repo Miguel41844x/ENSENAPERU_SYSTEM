@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     "students",
     "volunteers",
     "escuelas",
+    "core",
 ]
 
 MIDDLEWARE = [

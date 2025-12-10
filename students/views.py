@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render
 
-from empresa_educacion.models import Student
+from core.models import Student
 from .forms import StudentForm
 
 

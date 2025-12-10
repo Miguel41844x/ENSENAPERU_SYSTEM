@@ -1,6 +1,6 @@
 from django import forms
 
-from empresa_educacion.models import Agreement, Assignment, Volunteer
+from core.models import Agreement, Assignment, Volunteer
 
 
 class AssignmentForm(forms.ModelForm):

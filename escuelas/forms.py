@@ -1,6 +1,6 @@
 from django import forms
 
-from empresa_educacion.models import Agreement, School
+from core.models import Agreement, School
 
 
 class SchoolForm(forms.ModelForm):

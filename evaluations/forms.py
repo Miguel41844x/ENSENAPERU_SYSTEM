@@ -1,6 +1,6 @@
 from django import forms
 
-from empresa_educacion.models import AppUser, ClassSession, Student, StudentEvaluation
+from core.models import AppUser, ClassSession, Student, StudentEvaluation
 
 
 class StudentEvaluationForm(forms.ModelForm):

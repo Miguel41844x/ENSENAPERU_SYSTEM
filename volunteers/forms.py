@@ -1,6 +1,6 @@
 from django import forms
 
-from empresa_educacion.models import Volunteer
+from core.models import Volunteer
 
 
 class VolunteerForm(forms.ModelForm):

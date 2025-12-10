@@ -4,7 +4,7 @@ from django.db import DatabaseError
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView
 
-from empresa_educacion.models import Assignment, School, Student, Volunteer
+from core.models import Assignment, School, Student, Volunteer
 
 
 class DashboardView(LoginRequiredMixin, TemplateView):
