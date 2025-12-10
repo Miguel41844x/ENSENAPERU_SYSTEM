@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
@@ -57,11 +58,10 @@ def student_create(request):
 @login_required
 def student_delete(request, student_id):
     student = get_object_or_404(Student, pk=student_id)
-
     if request.method == "POST":
-        student.delete()
-        messages.success(request, "Estudiante eliminado correctamente.")
-    else:
-        messages.error(request, "Operación no permitida.")
-
-    return redirect("student_list")
+        try:
+            student.delete()
+            messages.success(request, "Estudiante eliminado correctamente.")
+        except IntegrityError:
+            messages.error(request, "Este estudiante tiene matrículas asociadas y no se puede eliminar.")
+        return redirect("student_list")
