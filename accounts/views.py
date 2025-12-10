@@ -1,8 +1,9 @@
-from django.contrib.auth import views as auth_views
+from django.contrib.auth import views as auth_views, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import DatabaseError
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView
+from django.shortcuts import redirect
 
 from core.models import Assignment, School, Student, Volunteer
 
@@ -35,5 +36,7 @@ class SignInView(auth_views.LoginView):
     redirect_authenticated_user = True
 
 
-class SignOutView(auth_views.LogoutView):
-    next_page = reverse_lazy("login")
+def SignOutView(request):
+    logout(request)
+    return redirect("login")
+

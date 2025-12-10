@@ -4,5 +4,5 @@ from .views import DashboardView, SignInView, SignOutView
 urlpatterns = [
     path("", DashboardView.as_view(), name="dashboard"),
     path("login/", SignInView.as_view(), name="login"),
-    path("logout/", SignOutView.as_view(), name="logout"),
+    path("logout/", SignOutView, name="logout"),
 ]
