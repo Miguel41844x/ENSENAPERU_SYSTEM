@@ -1,4 +1,3 @@
-"""Configuración principal del proyecto de gestión educativa."""
 from pathlib import Path
 import os
 
