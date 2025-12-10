@@ -15,4 +15,4 @@ class VolunteerForm(forms.ModelForm):
             "specialty",
             "status",
         ]
-        widgets = {"status": forms.Select(choices=[("ACTIVO", "Activo"), ("INACTIVO", "Inactivo")])}
+        widgets = {"status": forms.Select(choices=Volunteer.STATUS_CHOICES)}

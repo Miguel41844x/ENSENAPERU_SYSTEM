@@ -17,7 +17,7 @@ class AssignmentForm(forms.ModelForm):
         widgets = {
             "start_date": forms.DateInput(attrs={"type": "date"}),
             "end_date": forms.DateInput(attrs={"type": "date"}),
-            "status": forms.Select(choices=[("ACTIVO", "Activo"), ("INACTIVO", "Inactivo"), ("FINALIZADO", "Finalizado")]),
+            "status": forms.Select(choices=Assignment.STATUS_CHOICES),
         }
 
     def __init__(self, *args, **kwargs):

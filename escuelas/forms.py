@@ -20,7 +20,7 @@ class SchoolForm(forms.ModelForm):
             "main_contact_phone": "Teléfono de contacto",
             "status": "Estado",
         }
-        widgets = {"status": forms.Select(choices=[("ACTIVA", "Activa"), ("INACTIVA", "Inactiva")])}
+        widgets = {"status": forms.Select(choices=School.STATUS_CHOICES)}
 
 
 class AgreementForm(forms.ModelForm):
