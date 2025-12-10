@@ -1,4 +1,4 @@
-# ENSENAPERU_SYSTEM
+# ENSEÑA PERU SYSTEM
 
 Proyecto base en **Django** para la gestión de una empresa de educación, preparado para conectarse a una base de datos **Oracle** y con una plantilla inicial editable.
 

@@ -14,6 +14,14 @@ class AssignmentForm(forms.ModelForm):
             "role",
             "status",
         ]
+        labels = {
+            "volunteer": "Voluntario",
+            "agreement": "Convenio",
+            "start_date": "Fecha de inicio",
+            "end_date": "Fecha de fin",
+            "role": "Rol",
+            "status": "Estado",
+        }
         widgets = {
             "start_date": forms.DateInput(attrs={"type": "date"}),
             "end_date": forms.DateInput(attrs={"type": "date"}),
@@ -26,6 +34,10 @@ class AssignmentForm(forms.ModelForm):
         self.fields["agreement"].queryset = (
             Agreement.objects.select_related("school").order_by("school__name")[:100]
         )
+        self.fields["status"].choices = [
+            (Assignment.STATUS_ACCEPTED, "Aceptada"),
+            (Assignment.STATUS_PENDING, "Pendiente"),
+        ]
         for field_name in ["volunteer", "agreement"]:
             self.fields[field_name].widget.attrs.update(
                 {"class": "searchable-select", "data-search": "true"}
