@@ -5,34 +5,16 @@
 <section class="section">
     <header class="section-header">
         <h2>Convenios vigentes</h2>
-        <p>Convenios activos que permiten asignar voluntarios a escuelas.</p>
+        <p>Listado demostrativo de convenios activos entre escuelas y ENSENAPERU.</p>
     </header>
 
-    <div class="table-card">
-        <table class="data-table">
-            <thead>
-            <tr>
-                <th>Escuela</th>
-                <th>Ubicación</th>
-                <th>Inicio</th>
-                <th>Fin</th>
-                <th>Estado</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for a in agreements %}
-                <tr>
-                    <td>{{ a.school.name }}</td>
-                    <td>{{ a.school.ubication }}</td>
-                    <td>{{ a.startdate }}</td>
-                    <td>{{ a.enddate }}</td>
-                    <td><span class="badge badge-status-{{ a.agreementstatus|lower|slugify }}">{{ a.agreementstatus }}</span></td>
-                </tr>
-            {% empty %}
-                <tr><td colspan="5" class="empty-row">No hay convenios vigentes.</td></tr>
-            {% endfor %}
-            </tbody>
-        </table>
+    <div class="card">
+        <p>Esta vista no consulta información real. Sirve para documentar qué datos se mostrarán.</p>
+        <ul>
+            <li>Escuela y ubicación asociada.</li>
+            <li>Fechas de inicio y fin del convenio.</li>
+            <li>Estado del convenio para determinar asignaciones.</li>
+        </ul>
     </div>
 </section>
 {% endblock %}

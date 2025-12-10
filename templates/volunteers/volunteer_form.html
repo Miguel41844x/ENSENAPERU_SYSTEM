@@ -1,28 +1,40 @@
 {% extends "base.html" %}
-{% block title %}Registrar voluntario · ENSENAPERU{% endblock %}
+{% block title %}Nuevo voluntario · ENSENAPERU{% endblock %}
 
 {% block content %}
 <section class="section">
     <header class="section-header">
-        <h2>Registro de voluntario</h2>
-        <p>Datos personales y académicos del voluntario postulante.</p>
+        <h2>Registro de voluntario (sin acciones)</h2>
+        <p>Los campos se muestran de forma descriptiva hasta activar el backend.</p>
     </header>
 
-    <form method="post" class="form card">
-        {% csrf_token %}
+    <div class="card form">
         <div class="form-grid">
-            {% for field in form %}
-                <div class="form-group {% if field.name in 'experiencetext' %}form-group-full{% endif %}">
-                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                    {{ field }}
-                    {{ field.errors }}
-                </div>
-            {% endfor %}
+            <div class="form-group">
+                <label>Documento de identidad</label>
+                <p class="placeholder">Campo pendiente de activación.</p>
+            </div>
+            <div class="form-group">
+                <label>Nombres</label>
+                <p class="placeholder">Ingreso manual en iteraciones futuras.</p>
+            </div>
+            <div class="form-group">
+                <label>Apellidos</label>
+                <p class="placeholder">Ingreso manual en iteraciones futuras.</p>
+            </div>
+            <div class="form-group">
+                <label>Especialidad</label>
+                <p class="placeholder">Selección de especialidad.</p>
+            </div>
+            <div class="form-group form-group-full">
+                <label>Contacto</label>
+                <p class="placeholder">Correo y teléfono del voluntario.</p>
+            </div>
         </div>
         <div class="form-actions">
-            <a href="{% url 'volunteer_list' %}" class="btn-ghost">Cancelar</a>
-            <button type="submit" class="btn-primary">Guardar</button>
+            <span class="btn-ghost disabled">Cancelar</span>
+            <span class="btn-primary disabled">Guardar voluntario</span>
         </div>
-    </form>
+    </div>
 </section>
 {% endblock %}

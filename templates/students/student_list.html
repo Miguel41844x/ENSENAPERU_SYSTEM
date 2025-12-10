@@ -5,33 +5,16 @@
 <section class="section">
     <header class="section-header">
         <h2>Estudiantes beneficiarios</h2>
-        <p>Estudiantes vinculados a escuelas y cohortes.</p>
-        <a href="{% url 'student_create' %}" class="btn-primary">Nuevo estudiante</a>
+        <p>Visualización estática de la lista de estudiantes.</p>
     </header>
 
-    <div class="table-card">
-        <table class="data-table">
-            <thead>
-            <tr>
-                <th>Código</th>
-                <th>Nombre</th>
-                <th>Escuela</th>
-                <th>Grado / Sección</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for st in students %}
-                <tr>
-                    <td>{{ st.studentcode }}</td>
-                    <td>{{ st.firstname }} {{ st.lastname }}</td>
-                    <td>{{ st.school.name }}</td>
-                    <td>{{ st.grade }} {{ st.section }}</td>
-                </tr>
-            {% empty %}
-                <tr><td colspan="4" class="empty-row">No hay estudiantes registrados.</td></tr>
-            {% endfor %}
-            </tbody>
-        </table>
+    <div class="card">
+        <p>Se mostrarán los estudiantes asociados a escuelas y cohortes cuando se active la capa de datos.</p>
+        <ul>
+            <li>Código de estudiante y datos de identificación.</li>
+            <li>Escuela, grado y sección asignados.</li>
+            <li>Filtros y exportaciones se agregarán posteriormente.</li>
+        </ul>
     </div>
 </section>
 {% endblock %}

@@ -1,26 +1,31 @@
-{% extends "base.html" %}
-{% block title %}Iniciar sesión · ENSENAPERU{% endblock %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ENSENAPERU{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/ensenaperu.css' %}">
+</head>
+<body>
+    <header class="site-header">
+        <div class="brand">ENSENAPERU</div>
+        <nav class="site-nav">
+            <span class="nav-pill">Panel</span>
+            <span class="nav-pill">Voluntarios</span>
+            <span class="nav-pill">Escuelas</span>
+            <span class="nav-pill">Estudiantes</span>
+            <span class="nav-pill">Asignaciones</span>
+            <span class="nav-pill">Evaluaciones</span>
+        </nav>
+    </header>
 
-{% block content %}
-<section class="auth-wrapper">
-    <div class="auth-card">
-        <h2>Ingreso al sistema</h2>
-        <p class="auth-subtitle">
-            Accede a la gestión de voluntarios, escuelas con convenio y estudiantes.
-        </p>
+    <main class="site-main">
+        {% block content %}{% endblock %}
+    </main>
 
-        <form method="post" class="form">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="id_username">Usuario</label>
-                <input type="text" name="username" id="id_username" required autofocus>
-            </div>
-            <div class="form-group">
-                <label for="id_password">Contraseña</label>
-                <input type="password" name="password" id="id_password" required>
-            </div>
-            <button type="submit" class="btn-primary btn-full">Ingresar</button>
-        </form>
-    </div>
-</section>
-{% endblock %}
+    <footer class="site-footer">
+        <p>Interfaces de referencia en construcción. No se ha implementado lógica de negocio.</p>
+    </footer>
+</body>
+</html>

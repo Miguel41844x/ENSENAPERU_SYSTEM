@@ -4,43 +4,37 @@
 {% block content %}
 <section class="section">
     <header class="section-header">
-        <h2>Crear asignación</h2>
-        <p>Solo voluntarios aprobados y escuelas con convenio activo pueden ser asignados.</p>
+        <h2>Crear asignación (borrador visual)</h2>
+        <p>Este formulario aún no procesa información; solo documenta los campos requeridos.</p>
     </header>
 
-    <form method="post" class="form card">
-        {% csrf_token %}
+    <div class="card form">
         <div class="form-grid">
             <div class="form-group">
-                <label for="id_volunteer">Voluntario (Approved)</label>
-                {{ form.volunteer }}
-                {{ form.volunteer.errors }}
+                <label>Voluntario</label>
+                <p class="placeholder">Selección pendiente de habilitar.</p>
             </div>
             <div class="form-group">
-                <label for="id_school">Escuela (con convenio activo)</label>
-                {{ form.school }}
-                {{ form.school.errors }}
+                <label>Escuela</label>
+                <p class="placeholder">Lista de escuelas con convenio activo.</p>
             </div>
             <div class="form-group">
-                <label for="id_startdate">Fecha inicio</label>
-                {{ form.startdate }}
-                {{ form.startdate.errors }}
+                <label>Fecha inicio</label>
+                <p class="placeholder">Fecha de referencia.</p>
             </div>
             <div class="form-group">
-                <label for="id_enddate">Fecha fin</label>
-                {{ form.enddate }}
-                {{ form.enddate.errors }}
+                <label>Fecha fin</label>
+                <p class="placeholder">Fecha de referencia.</p>
             </div>
             <div class="form-group form-group-full">
-                <label for="id_role">Rol</label>
-                {{ form.role }}
-                {{ form.role.errors }}
+                <label>Rol</label>
+                <p class="placeholder">Descripción del rol asignado.</p>
             </div>
         </div>
         <div class="form-actions">
-            <a href="{% url 'assignment_list' %}" class="btn-ghost">Cancelar</a>
-            <button type="submit" class="btn-primary">Guardar asignación</button>
+            <span class="btn-ghost disabled">Cancelar</span>
+            <span class="btn-primary disabled">Guardar asignación</span>
         </div>
-    </form>
+    </div>
 </section>
 {% endblock %}

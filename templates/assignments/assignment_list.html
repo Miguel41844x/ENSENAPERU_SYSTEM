@@ -4,38 +4,17 @@
 {% block content %}
 <section class="section">
     <header class="section-header">
-        <h2>Asignaciones de voluntarios</h2>
-        <p>Relación voluntario – escuela – convenio – rol.</p>
-        <a href="{% url 'assignment_create' %}" class="btn-primary">Nueva asignación</a>
+        <h2>Asignaciones de referencia</h2>
+        <p>Próximamente se mostrará la relación entre voluntarios y escuelas.</p>
     </header>
 
-    <div class="table-card">
-        <table class="data-table">
-            <thead>
-            <tr>
-                <th>Voluntario</th>
-                <th>Escuela</th>
-                <th>Rol</th>
-                <th>Inicio</th>
-                <th>Fin</th>
-                <th>Estado</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for a in assignments %}
-                <tr>
-                    <td>{{ a.volunteer.firstname }} {{ a.volunteer.lastname }}</td>
-                    <td>{{ a.school.name }}</td>
-                    <td>{{ a.role }}</td>
-                    <td>{{ a.startdate }}</td>
-                    <td>{{ a.enddate }}</td>
-                    <td><span class="badge badge-status-{{ a.assignmentstatus|lower|slugify }}">{{ a.assignmentstatus }}</span></td>
-                </tr>
-            {% empty %}
-                <tr><td colspan="6" class="empty-row">No hay asignaciones registradas.</td></tr>
-            {% endfor %}
-            </tbody>
-        </table>
+    <div class="card">
+        <p>Actualmente no se consultan datos ni se realizan acciones. La tabla será implementada en el futuro.</p>
+        <ul>
+            <li>Asignar voluntarios aprobados a escuelas con convenio activo.</li>
+            <li>Registrar fechas de inicio y fin junto con el rol asignado.</li>
+            <li>Mostrar el estado de cada asignación sin requerir base de datos por ahora.</li>
+        </ul>
     </div>
 </section>
 {% endblock %}

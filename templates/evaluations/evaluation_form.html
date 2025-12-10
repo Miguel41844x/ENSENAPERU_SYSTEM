@@ -1,52 +1,40 @@
 {% extends "base.html" %}
-{% block title %}Registrar evaluación · ENSENAPERU{% endblock %}
+{% block title %}Nueva evaluación · ENSENAPERU{% endblock %}
 
 {% block content %}
 <section class="section">
     <header class="section-header">
-        <h2>Registro de evaluación académica</h2>
-        <p>La base de datos creará planes de refuerzo cuando la nota sea menor a 11.</p>
+        <h2>Registrar evaluación (sin lógica)</h2>
+        <p>Sección de campos de muestra para futuras implementaciones.</p>
     </header>
 
-    <form method="post" class="form card">
-        {% csrf_token %}
+    <div class="card form">
         <div class="form-grid">
             <div class="form-group">
-                <label for="id_student">Estudiante</label>
-                {{ form.student }}
-                {{ form.student.errors }}
+                <label>Estudiante</label>
+                <p class="placeholder">Selección pendiente.</p>
             </div>
             <div class="form-group">
-                <label for="id_session">Sesión</label>
-                {{ form.session }}
-                {{ form.session.errors }}
+                <label>Asistencia</label>
+                <p class="placeholder">Marcado de asistencia.</p>
             </div>
             <div class="form-group">
-                <label for="id_evaltype">Tipo</label>
-                {{ form.evaltype }}
-                {{ form.evaltype.errors }}
+                <label>Fecha</label>
+                <p class="placeholder">Fecha de la evaluación.</p>
             </div>
             <div class="form-group">
-                <label for="id_score">Nota (0–20)</label>
-                {{ form.score }}
-                {{ form.score.errors }}
-            </div>
-            <div class="form-group">
-                <label for="id_attendanceflag">Asistencia</label>
-                {{ form.attendanceflag }}
-                {{ form.attendanceflag.errors }}
+                <label>Resultado</label>
+                <p class="placeholder">Calificación estimada.</p>
             </div>
             <div class="form-group form-group-full">
-                <label for="id_comments">Comentarios</label>
-                {{ form.comments }}
-                {{ form.comments.errors }}
+                <label>Notas adicionales</label>
+                <p class="placeholder">Comentarios de seguimiento.</p>
             </div>
         </div>
-
         <div class="form-actions">
-            <a href="{% url 'evaluation_list' %}" class="btn-ghost">Cancelar</a>
-            <button type="submit" class="btn-primary">Guardar evaluación</button>
+            <span class="btn-ghost disabled">Cancelar</span>
+            <span class="btn-primary disabled">Guardar evaluación</span>
         </div>
-    </form>
+    </div>
 </section>
 {% endblock %}

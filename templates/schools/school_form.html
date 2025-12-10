@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Nueva escuela · ENSENAPERU{% endblock %}
+
+{% block content %}
+<section class="section">
+    <header class="section-header">
+        <h2>Registrar escuela (maqueta)</h2>
+        <p>La captura de datos se implementará después; esta vista es solo informativa.</p>
+    </header>
+
+    <div class="card form">
+        <div class="form-grid">
+            <div class="form-group">
+                <label>Nombre</label>
+                <p class="placeholder">Nombre de la institución.</p>
+            </div>
+            <div class="form-group">
+                <label>Ubicación</label>
+                <p class="placeholder">Dirección o distrito.</p>
+            </div>
+            <div class="form-group">
+                <label>Contacto principal</label>
+                <p class="placeholder">Persona de referencia.</p>
+            </div>
+            <div class="form-group">
+                <label>Estado</label>
+                <p class="placeholder">Convenio en evaluación.</p>
+            </div>
+        </div>
+        <div class="form-actions">
+            <span class="btn-ghost disabled">Cancelar</span>
+            <span class="btn-primary disabled">Guardar escuela</span>
+        </div>
+    </div>
+</section>
+{% endblock %}

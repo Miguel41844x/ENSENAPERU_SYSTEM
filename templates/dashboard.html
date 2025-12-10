@@ -4,32 +4,33 @@
 {% block content %}
 <section class="hero">
     <div class="hero-text">
-        <h2>Hola, {{ user.first_name|default:user.username }}</h2>
+        <h2>Panel de referencia</h2>
         <p>
-            Este panel resume el ciclo completo: Registro → Evaluación → Asignación → Seguimiento académico.
+            Vista general del sistema ENSENAPERU sin conexiones activas ni datos dinámicos. Sirve
+            únicamente para validar el diseño base.
         </p>
         <div class="hero-actions">
-            <a href="{% url 'volunteer_create' %}" class="btn-primary">Registrar voluntario</a>
-            <a href="{% url 'school_create' %}" class="btn-secondary">Registrar escuela / convenio</a>
+            <span class="btn-primary disabled">Registrar voluntario</span>
+            <span class="btn-secondary disabled">Registrar escuela</span>
         </div>
     </div>
 
     <div class="hero-side">
         <div class="hero-stat">
             <span class="stat-label">Voluntarios</span>
-            <span class="stat-value">{{ stats.volunteers }}</span>
+            <span class="stat-value">—</span>
         </div>
         <div class="hero-stat">
             <span class="stat-label">Escuelas activas</span>
-            <span class="stat-value">{{ stats.schools }}</span>
+            <span class="stat-value">—</span>
         </div>
         <div class="hero-stat">
             <span class="stat-label">Estudiantes</span>
-            <span class="stat-value">{{ stats.students }}</span>
+            <span class="stat-value">—</span>
         </div>
         <div class="hero-stat">
             <span class="stat-label">Planes de refuerzo</span>
-            <span class="stat-value">{{ stats.remedial_plans }}</span>
+            <span class="stat-value">—</span>
         </div>
     </div>
 </section>
@@ -37,38 +38,22 @@
 <section class="cards-grid">
     <article class="card">
         <h3>Gestión de voluntarios</h3>
-        <p>Registro, postulaciones, evaluaciones y estado (Postulante, Aprobado, etc.).</p>
-        <div class="card-actions">
-            <a href="{% url 'volunteer_list' %}" class="btn-link">Ver voluntarios</a>
-            <a href="{% url 'volunteer_create' %}" class="btn-secondary">Nuevo voluntario</a>
-        </div>
+        <p>Se registrarán postulaciones y estados, pero aún no hay acciones habilitadas.</p>
     </article>
 
     <article class="card">
         <h3>Escuelas y convenios</h3>
-        <p>Escuelas aliadas, vigencia de convenios y necesidades registradas.</p>
-        <div class="card-actions">
-            <a href="{% url 'school_list' %}" class="btn-link">Ver escuelas</a>
-            <a href="{% url 'agreement_list' %}" class="btn-secondary">Ver convenios</a>
-        </div>
+        <p>Listado informativo de instituciones asociadas en construcción.</p>
     </article>
 
     <article class="card">
         <h3>Asignaciones</h3>
-        <p>Asignar voluntarios aprobados solo a escuelas con convenio vigente.</p>
-        <div class="card-actions">
-            <a href="{% url 'assignment_list' %}" class="btn-link">Ver asignaciones</a>
-            <a href="{% url 'assignment_create' %}" class="btn-secondary">Nueva asignación</a>
-        </div>
+        <p>La relación entre voluntarios y escuelas se configurará en iteraciones futuras.</p>
     </article>
 
     <article class="card">
         <h3>Seguimiento de estudiantes</h3>
-        <p>Evaluaciones, asistencia y planes de refuerzo automáticos.</p>
-        <div class="card-actions">
-            <a href="{% url 'evaluation_list' %}" class="btn-link">Ver evaluaciones</a>
-            <a href="{% url 'evaluation_create' %}" class="btn-secondary">Registrar evaluación</a>
-        </div>
+        <p>Registros de asistencia y evaluaciones se activarán más adelante.</p>
     </article>
 </section>
 {% endblock %}

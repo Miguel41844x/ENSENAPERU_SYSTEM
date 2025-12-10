@@ -2,25 +2,18 @@
 {% block title %}Iniciar sesión · ENSENAPERU{% endblock %}
 
 {% block content %}
-<section class="auth-wrapper">
-    <div class="auth-card">
-        <h2>Ingreso al sistema</h2>
-        <p class="auth-subtitle">
-            Accede a la gestión de voluntarios, escuelas con convenio y estudiantes.
-        </p>
-
-        <form method="post" class="form">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="id_username">Usuario</label>
-                <input type="text" name="username" id="id_username" required autofocus>
-            </div>
-            <div class="form-group">
-                <label for="id_password">Contraseña</label>
-                <input type="password" name="password" id="id_password" required>
-            </div>
-            <button type="submit" class="btn-primary btn-full">Ingresar</button>
-        </form>
+<section class="section">
+    <header class="section-header">
+        <h2>Ingreso pendiente de habilitar</h2>
+        <p>Esta pantalla solo describe el flujo esperado. La autenticación se activará más adelante.</p>
+    </header>
+    <div class="card">
+        <p>No se muestran formularios ni acciones para mantener el entorno sin lógica conectada.</p>
+        <ul>
+            <li>El usuario podrá ingresar con sus credenciales institucionales.</li>
+            <li>Se validará el acceso antes de mostrar el panel principal.</li>
+            <li>Actualmente solo es una vista estática para revisión visual.</li>
+        </ul>
     </div>
 </section>
 {% endblock %}
