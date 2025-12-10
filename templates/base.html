@@ -8,24 +8,37 @@
     <link rel="stylesheet" href="{% static 'css/ensenaperu.css' %}">
 </head>
 <body>
-    <header class="site-header">
-        <div class="brand">ENSENAPERU</div>
-        <nav class="site-nav">
-            <span class="nav-pill">Panel</span>
-            <span class="nav-pill">Voluntarios</span>
-            <span class="nav-pill">Escuelas</span>
-            <span class="nav-pill">Estudiantes</span>
-            <span class="nav-pill">Asignaciones</span>
-            <span class="nav-pill">Evaluaciones</span>
+    <header class="topbar">
+        <div class="brand">
+            <div class="brand-logo">EN</div>
+            <div class="brand-text">
+                <h1>ENSENAPERU</h1>
+                <p>Gestión educativa</p>
+            </div>
+        </div>
+        <nav class="topnav">
+            <a href="{% url 'dashboard' %}">Panel</a>
+            <a href="{% url 'volunteer_list' %}">Voluntarios</a>
+            <a href="{% url 'school_list' %}">Escuelas</a>
+            <a href="{% url 'student_list' %}">Estudiantes</a>
+            <a href="{% url 'assignment_list' %}">Asignaciones</a>
+            <a href="{% url 'evaluation_list' %}">Evaluaciones</a>
         </nav>
     </header>
 
-    <main class="site-main">
+    <main class="page">
+        {% if messages %}
+            <div class="flash-container">
+                {% for message in messages %}
+                    <div class="flash flash-{{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
         {% block content %}{% endblock %}
     </main>
 
-    <footer class="site-footer">
-        <p>Interfaces de referencia en construcción. No se ha implementado lógica de negocio.</p>
+    <footer class="footer">
+        <p>Interfaces de referencia en construcción. Los formularios escriben sobre la base existente.</p>
     </footer>
 </body>
 </html>

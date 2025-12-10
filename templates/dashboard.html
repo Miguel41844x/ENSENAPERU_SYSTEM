@@ -4,33 +4,33 @@
 {% block content %}
 <section class="hero">
     <div class="hero-text">
-        <h2>Panel de referencia</h2>
+        <h2>Panel general</h2>
         <p>
-            Vista general del sistema ENSENAPERU sin conexiones activas ni datos dinámicos. Sirve
-            únicamente para validar el diseño base.
+            Resumen de las entidades sincronizadas con la base Oracle. Usa los accesos rápidos
+            para registrar nuevos datos o revisar los listados completos.
         </p>
         <div class="hero-actions">
-            <span class="btn-primary disabled">Registrar voluntario</span>
-            <span class="btn-secondary disabled">Registrar escuela</span>
+            <a class="btn-primary" href="{% url 'volunteer_create' %}">Registrar voluntario</a>
+            <a class="btn-secondary" href="{% url 'school_create' %}">Registrar escuela</a>
         </div>
     </div>
 
     <div class="hero-side">
         <div class="hero-stat">
             <span class="stat-label">Voluntarios</span>
-            <span class="stat-value">—</span>
+            <span class="stat-value">{{ volunteers }}</span>
         </div>
         <div class="hero-stat">
             <span class="stat-label">Escuelas activas</span>
-            <span class="stat-value">—</span>
+            <span class="stat-value">{{ schools }}</span>
         </div>
         <div class="hero-stat">
             <span class="stat-label">Estudiantes</span>
-            <span class="stat-value">—</span>
+            <span class="stat-value">{{ students }}</span>
         </div>
         <div class="hero-stat">
-            <span class="stat-label">Planes de refuerzo</span>
-            <span class="stat-value">—</span>
+            <span class="stat-label">Asignaciones</span>
+            <span class="stat-value">{{ assignments }}</span>
         </div>
     </div>
 </section>
@@ -38,22 +38,26 @@
 <section class="cards-grid">
     <article class="card">
         <h3>Gestión de voluntarios</h3>
-        <p>Se registrarán postulaciones y estados, pero aún no hay acciones habilitadas.</p>
+        <p>Consulta información de contacto, especialidades y estados de postulación.</p>
+        <a class="btn-text" href="{% url 'volunteer_list' %}">Abrir listado</a>
     </article>
 
     <article class="card">
         <h3>Escuelas y convenios</h3>
-        <p>Listado informativo de instituciones asociadas en construcción.</p>
+        <p>Revisa las instituciones aliadas y los convenios vigentes con fechas de inicio y cierre.</p>
+        <a class="btn-text" href="{% url 'school_list' %}">Ver escuelas</a>
     </article>
 
     <article class="card">
         <h3>Asignaciones</h3>
-        <p>La relación entre voluntarios y escuelas se configurará en iteraciones futuras.</p>
+        <p>Asocia voluntarios con convenios y roles específicos para cada despliegue.</p>
+        <a class="btn-text" href="{% url 'assignment_list' %}">Gestionar asignaciones</a>
     </article>
 
     <article class="card">
         <h3>Seguimiento de estudiantes</h3>
-        <p>Registros de asistencia y evaluaciones se activarán más adelante.</p>
+        <p>Captura evaluaciones por sesión y comentarios para cada estudiante inscrito.</p>
+        <a class="btn-text" href="{% url 'evaluation_list' %}">Abrir evaluaciones</a>
     </article>
 </section>
 {% endblock %}

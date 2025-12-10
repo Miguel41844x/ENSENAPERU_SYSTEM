@@ -4,17 +4,42 @@
 {% block content %}
 <section class="section">
     <header class="section-header">
-        <h2>Voluntarios</h2>
-        <p>Listado ilustrativo sin datos conectados.</p>
+        <div>
+            <h2>Voluntarios</h2>
+            <p>Personas registradas con sus datos de contacto y especialidad declarada.</p>
+        </div>
+        <a class="btn-primary" href="{% url 'volunteer_create' %}">Nuevo voluntario</a>
     </header>
 
-    <div class="card">
-        <p>En esta vista se mostrarán los postulantes y docentes voluntarios cuando se habilite la base de datos.</p>
-        <ul>
-            <li>Identificación por DNI y datos de contacto.</li>
-            <li>Especialidad declarada y estado del proceso.</li>
-            <li>Filtrado y búsqueda se agregarán posteriormente.</li>
-        </ul>
+    <div class="table-card">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>DNI</th>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Especialidad</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for volunteer in volunteers %}
+                    <tr>
+                        <td>{{ volunteer.volunteer_id }}</td>
+                        <td>{{ volunteer.dni }}</td>
+                        <td>{{ volunteer.first_name }} {{ volunteer.last_name }}</td>
+                        <td>{{ volunteer.email }}</td>
+                        <td>{{ volunteer.specialty|default:"—" }}</td>
+                        <td>{{ volunteer.status }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="6" class="empty-row">No hay voluntarios registrados.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </section>
 {% endblock %}

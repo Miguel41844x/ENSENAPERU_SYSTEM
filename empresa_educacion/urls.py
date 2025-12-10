@@ -1,19 +1,12 @@
 from django.contrib import admin
 from django.urls import path, include
-from . import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", views.dashboard, name="dashboard"),
-    path("login/", views.simple_login, name="login"),
-    path("logout/", views.simple_logout, name="logout"),
-    path("volunteers/", views.volunteer_list, name="volunteer_list"),
-    path("volunteers/new/", views.volunteer_create, name="volunteer_create"),
-    path("students/", views.student_list, name="student_list"),
-    path("students/new/", views.student_create, name="student_create"),
-    path("assignments/", views.assignment_list, name="assignment_list"),
-    path("assignments/new/", views.assignment_create, name="assignment_create"),
-    path("evaluations/", views.evaluation_list, name="evaluation_list"),
-    path("evaluations/new/", views.evaluation_create, name="evaluation_create"),
+    path("", include("accounts.urls")),
+    path("volunteers/", include("volunteers.urls")),
+    path("students/", include("students.urls")),
+    path("assignments/", include("assignments.urls")),
+    path("evaluations/", include("evaluations.urls")),
     path("escuelas/", include("escuelas.urls")),
 ]

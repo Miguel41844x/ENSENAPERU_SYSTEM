@@ -4,17 +4,42 @@
 {% block content %}
 <section class="section">
     <header class="section-header">
-        <h2>Evaluaciones académicas</h2>
-        <p>Sección informativa sin conexión a registros.</p>
+        <div>
+            <h2>Evaluaciones de estudiantes</h2>
+            <p>Resultados por sesión académica y tipo de evaluación.</p>
+        </div>
+        <a class="btn-primary" href="{% url 'evaluation_create' %}">Nueva evaluación</a>
     </header>
 
-    <div class="card">
-        <p>Las evaluaciones de estudiantes se mostrarán aquí cuando se active la funcionalidad.</p>
-        <ul>
-            <li>Resultados periódicos y asistencia.</li>
-            <li>Detección de planes de refuerzo.</li>
-            <li>Historial de seguimiento académico.</li>
-        </ul>
+    <div class="table-card">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Estudiante</th>
+                    <th>Sesión</th>
+                    <th>Tipo</th>
+                    <th>Puntaje</th>
+                    <th>Creado por</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for evaluation in evaluations %}
+                    <tr>
+                        <td>{{ evaluation.stu_eval_id }}</td>
+                        <td>{{ evaluation.student.first_name }} {{ evaluation.student.last_name }}</td>
+                        <td>{{ evaluation.session.session_date|date:"d/m/Y H:i" }}</td>
+                        <td>{{ evaluation.eval_type }}</td>
+                        <td>{{ evaluation.score|default:"—" }}</td>
+                        <td>{{ evaluation.created_by_user.username|default:"—" }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="6" class="empty-row">No hay evaluaciones registradas.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </section>
 {% endblock %}

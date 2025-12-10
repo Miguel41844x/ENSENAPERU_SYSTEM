@@ -1,40 +1,30 @@
 {% extends "base.html" %}
-{% block title %}Nueva asignación · ENSENAPERU{% endblock %}
+{% block title %}Registrar asignación · ENSENAPERU{% endblock %}
 
 {% block content %}
-<section class="section">
+<section class="section narrow">
     <header class="section-header">
-        <h2>Crear asignación (borrador visual)</h2>
-        <p>Este formulario aún no procesa información; solo documenta los campos requeridos.</p>
+        <h2>Nueva asignación</h2>
+        <p>Vincula a un voluntario con un convenio y define fechas de inicio y fin.</p>
     </header>
-
-    <div class="card form">
-        <div class="form-grid">
-            <div class="form-group">
-                <label>Voluntario</label>
-                <p class="placeholder">Selección pendiente de habilitar.</p>
+    <div class="card">
+        <form method="post" class="form">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <div class="form-grid">
+                {% for field in form %}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}<div class="field-errors">{{ field.errors }}</div>{% endif %}
+                    </div>
+                {% endfor %}
             </div>
-            <div class="form-group">
-                <label>Escuela</label>
-                <p class="placeholder">Lista de escuelas con convenio activo.</p>
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">Guardar</button>
+                <a class="btn-secondary" href="{% url 'assignment_list' %}">Cancelar</a>
             </div>
-            <div class="form-group">
-                <label>Fecha inicio</label>
-                <p class="placeholder">Fecha de referencia.</p>
-            </div>
-            <div class="form-group">
-                <label>Fecha fin</label>
-                <p class="placeholder">Fecha de referencia.</p>
-            </div>
-            <div class="form-group form-group-full">
-                <label>Rol</label>
-                <p class="placeholder">Descripción del rol asignado.</p>
-            </div>
-        </div>
-        <div class="form-actions">
-            <span class="btn-ghost disabled">Cancelar</span>
-            <span class="btn-primary disabled">Guardar asignación</span>
-        </div>
+        </form>
     </div>
 </section>
 {% endblock %}

@@ -4,17 +4,44 @@
 {% block content %}
 <section class="section">
     <header class="section-header">
-        <h2>Asignaciones de referencia</h2>
-        <p>Próximamente se mostrará la relación entre voluntarios y escuelas.</p>
+        <div>
+            <h2>Asignaciones</h2>
+            <p>Relación entre voluntarios y convenios activos.</p>
+        </div>
+        <a class="btn-primary" href="{% url 'assignment_create' %}">Nueva asignación</a>
     </header>
 
-    <div class="card">
-        <p>Actualmente no se consultan datos ni se realizan acciones. La tabla será implementada en el futuro.</p>
-        <ul>
-            <li>Asignar voluntarios aprobados a escuelas con convenio activo.</li>
-            <li>Registrar fechas de inicio y fin junto con el rol asignado.</li>
-            <li>Mostrar el estado de cada asignación sin requerir base de datos por ahora.</li>
-        </ul>
+    <div class="table-card">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Voluntario</th>
+                    <th>Escuela</th>
+                    <th>Rol</th>
+                    <th>Inicio</th>
+                    <th>Fin</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for assignment in assignments %}
+                    <tr>
+                        <td>{{ assignment.assignment_id }}</td>
+                        <td>{{ assignment.volunteer.first_name }} {{ assignment.volunteer.last_name }}</td>
+                        <td>{{ assignment.agreement.school.name }}</td>
+                        <td>{{ assignment.role }}</td>
+                        <td>{{ assignment.start_date }}</td>
+                        <td>{{ assignment.end_date }}</td>
+                        <td>{{ assignment.status|default:"—" }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="7" class="empty-row">No hay asignaciones registradas.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </section>
 {% endblock %}

@@ -1,20 +1,44 @@
 {% extends "base.html" %}
-{% block title %}Convenios vigentes · ENSENAPERU{% endblock %}
+{% block title %}Convenios · ENSENAPERU{% endblock %}
 
 {% block content %}
 <section class="section">
     <header class="section-header">
-        <h2>Convenios vigentes</h2>
-        <p>Listado demostrativo de convenios activos entre escuelas y ENSENAPERU.</p>
+        <div>
+            <h2>Convenios</h2>
+            <p>Documentos y fechas de vigencia por escuela.</p>
+        </div>
     </header>
 
-    <div class="card">
-        <p>Esta vista no consulta información real. Sirve para documentar qué datos se mostrarán.</p>
-        <ul>
-            <li>Escuela y ubicación asociada.</li>
-            <li>Fechas de inicio y fin del convenio.</li>
-            <li>Estado del convenio para determinar asignaciones.</li>
-        </ul>
+    <div class="table-card">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Escuela</th>
+                    <th>Estado</th>
+                    <th>Inicio</th>
+                    <th>Fin</th>
+                    <th>Archivo</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for agreement in agreements %}
+                    <tr>
+                        <td>{{ agreement.agreement_id }}</td>
+                        <td>{{ agreement.school.name }}</td>
+                        <td>{{ agreement.status|default:"—" }}</td>
+                        <td>{{ agreement.start_date }}</td>
+                        <td>{{ agreement.end_date }}</td>
+                        <td>{{ agreement.file_path|default:"—" }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="6" class="empty-row">No hay convenios registrados.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </section>
 {% endblock %}
