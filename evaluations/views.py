@@ -1,7 +1,8 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db import IntegrityError
 from django.db.models import Q
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 
 from core.models import AppUser, StudentEvaluation
 from .forms import StudentEvaluationForm
@@ -57,3 +58,15 @@ def evaluation_create(request):
     else:
         form = StudentEvaluationForm()
     return render(request, "evaluations/evaluation_form.html", {"form": form})
+
+
+@login_required
+def evaluation_delete(request, evaluation_id):
+    evaluation = get_object_or_404(StudentEvaluation, pk=evaluation_id)
+    if request.method == "POST":
+        try:
+            evaluation.delete()
+            messages.success(request, "Evaluación eliminada correctamente.")
+        except IntegrityError:
+            messages.error(request, "No se puede eliminar la evaluación porque está asociada a otros registros.")
+        return redirect("evaluation_list")
