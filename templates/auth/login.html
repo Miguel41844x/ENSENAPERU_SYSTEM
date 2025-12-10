@@ -2,18 +2,29 @@
 {% block title %}Iniciar sesión · ENSENAPERU{% endblock %}
 
 {% block content %}
-<section class="section">
+<section class="section narrow">
     <header class="section-header">
-        <h2>Ingreso pendiente de habilitar</h2>
-        <p>Esta pantalla solo describe el flujo esperado. La autenticación se activará más adelante.</p>
+        <h2>Acceso al panel</h2>
+        <p>Usa tus credenciales para ingresar. El inicio de sesión está respaldado por la configuración estándar de Django.</p>
     </header>
     <div class="card">
-        <p>No se muestran formularios ni acciones para mantener el entorno sin lógica conectada.</p>
-        <ul>
-            <li>El usuario podrá ingresar con sus credenciales institucionales.</li>
-            <li>Se validará el acceso antes de mostrar el panel principal.</li>
-            <li>Actualmente solo es una vista estática para revisión visual.</li>
-        </ul>
+        <form method="post" class="form">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <div class="form-grid">
+                <div class="form-group form-group-full">
+                    <label for="id_username">Usuario</label>
+                    {{ form.username }}
+                </div>
+                <div class="form-group form-group-full">
+                    <label for="id_password">Contraseña</label>
+                    {{ form.password }}
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">Ingresar</button>
+            </div>
+        </form>
     </div>
 </section>
 {% endblock %}
