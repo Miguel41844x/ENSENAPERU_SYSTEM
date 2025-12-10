@@ -10,9 +10,9 @@ urlpatterns = [
         TemplateView.as_view(
             template_name="base.html",
             extra_context={
-                "company_name": "Empresa Educativa",
+                "company_name": "Enseña Perú",
                 "template_title": "Panel de inicio",
-                "editable_note": "Personaliza este texto para adaptar la plantilla a tus cursos, instructores y alumnos.",
+                "editable_note": "Favinovech",
             },
         ),
         name="inicio",

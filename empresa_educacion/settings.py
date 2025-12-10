@@ -50,14 +50,9 @@ ASGI_APPLICATION = "empresa_educacion.asgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.oracle",
-        "HOST": os.environ.get("ORACLE_HOST", "localhost"),
-        "PORT": os.environ.get("ORACLE_PORT", "1521"),
-        "NAME": os.environ.get("ORACLE_SERVICE_NAME", "XE"),
+        "NAME": os.environ.get("ORACLE_DSN", "localhost:1521/FREEPDB1"),
         "USER": os.environ.get("ORACLE_USER", "system"),
         "PASSWORD": os.environ.get("ORACLE_PASSWORD", "oracle"),
-        "OPTIONS": {
-            "service_name": os.environ.get("ORACLE_SERVICE_NAME", "XE"),
-        },
     }
 }
 
