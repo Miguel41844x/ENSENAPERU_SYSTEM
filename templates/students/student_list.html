@@ -40,6 +40,7 @@
                     <th>Código</th>
                     <th>Escuela</th>
                     <th>F. nacimiento</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -51,14 +52,50 @@
                         <td>{{ student.student_code|default:"—" }}</td>
                         <td>{{ student.school.name }}</td>
                         <td>{{ student.birthdate|date:"d/m/Y" }}</td>
+                        <td class="actions-cell">
+                            <form
+                                method="post"
+                                action="{% url 'student_delete' student.student_id %}"
+                                class="delete-form"
+                                data-student-name="{{ student.first_name }} {{ student.last_name }}"
+                            >
+                                {% csrf_token %}
+                                <button type="submit" class="icon-button" aria-label="Eliminar estudiante">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path
+                                            fill="currentColor"
+                                            d="M9 3.5a1.5 1.5 0 0 1 1.5-1.5h3A1.5 1.5 0 0 1 15 3.5V5h4a1 1 0 1 1 0 2h-.57l-1.12 12.27A2.5 2.5 0 0 1 14.83 21H9.17a2.5 2.5 0 0 1-2.48-2.73L5.57 7H5a1 1 0 1 1 0-2h4zm2 .5v1h2v-1zm5.3 3H7.7l1.05 11.5a.5.5 0 0 0 .5.5h5.5a.5.5 0 0 0 .5-.5z"
+                                        />
+                                    </svg>
+                                </button>
+                            </form>
+                        </td>
                     </tr>
                 {% empty %}
                     <tr>
-                        <td colspan="6" class="empty-row">No hay estudiantes registrados.</td>
+                        <td colspan="7" class="empty-row">No hay estudiantes registrados.</td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
 </section>
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll(".delete-form").forEach((form) => {
+                form.addEventListener("submit", (event) => {
+                    const name = form.dataset.studentName || "este estudiante";
+                    const confirmed = confirm(`¿Deseas eliminar a ${name}? Esta acción no se puede deshacer.`);
+
+                    if (!confirmed) {
+                        event.preventDefault();
+                    }
+                });
+            });
+        });
+    </script>
 {% endblock %}

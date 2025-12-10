@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 
 from core.models import Student
 from .forms import StudentForm
@@ -13,9 +13,9 @@ def student_list(request):
     order_param = request.GET.get("order", "name")
 
     order_fields = {
-        "name": ("last_name", "first_name"),
-        "dni": ("dni", "last_name"),
-        "school": ("school__name", "last_name"),
+        "name": ("first_name", "last_name"),
+        "dni": ("dni", "first_name", "last_name"),
+        "school": ("school__name", "first_name", "last_name"),
     }
     ordering = order_fields.get(order_param, order_fields["name"])
 
@@ -52,3 +52,16 @@ def student_create(request):
     else:
         form = StudentForm()
     return render(request, "students/student_form.html", {"form": form})
+
+
+@login_required
+def student_delete(request, student_id):
+    student = get_object_or_404(Student, pk=student_id)
+
+    if request.method == "POST":
+        student.delete()
+        messages.success(request, "Estudiante eliminado correctamente.")
+    else:
+        messages.error(request, "Operación no permitida.")
+
+    return redirect("student_list")
