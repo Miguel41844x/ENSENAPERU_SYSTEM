@@ -15,3 +15,10 @@ class StudentForm(forms.ModelForm):
             "birthdate",
         ]
         widgets = {"birthdate": forms.DateInput(attrs={"type": "date"})}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["school"].queryset = self.fields["school"].queryset.order_by("name")[:100]
+        self.fields["school"].widget.attrs.update(
+            {"class": "searchable-select", "data-search": "true"}
+        )

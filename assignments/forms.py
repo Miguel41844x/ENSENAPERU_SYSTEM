@@ -22,5 +22,11 @@ class AssignmentForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["volunteer"].queryset = Volunteer.objects.order_by("last_name", "first_name")
-        self.fields["agreement"].queryset = Agreement.objects.select_related("school").order_by("school__name")
+        self.fields["volunteer"].queryset = Volunteer.objects.order_by("last_name", "first_name")[:100]
+        self.fields["agreement"].queryset = (
+            Agreement.objects.select_related("school").order_by("school__name")[:100]
+        )
+        for field_name in ["volunteer", "agreement"]:
+            self.fields[field_name].widget.attrs.update(
+                {"class": "searchable-select", "data-search": "true"}
+            )

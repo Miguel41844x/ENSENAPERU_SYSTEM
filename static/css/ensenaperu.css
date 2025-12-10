@@ -400,6 +400,51 @@ body {
     gap: 10px;
 }
 
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    margin: 12px 0 18px;
+}
+
+.filter-bar input[type="search"],
+.filter-bar select {
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(30, 64, 175, 0.6);
+    background: rgba(15, 23, 42, 0.97);
+    color: var(--text-main);
+    padding: 8px 10px;
+}
+
+.filter-select {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.filter-bar .help-text {
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.help-text {
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.select-search-input {
+    width: 100%;
+    margin-bottom: 6px;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(30, 64, 175, 0.6);
+    background: rgba(15, 23, 42, 0.97);
+    color: var(--text-main);
+    padding: 6px 8px;
+}
+
 /* Tables */
 
 .table-card {
