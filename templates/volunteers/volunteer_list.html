@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Voluntarios · ENSENAPERU{% endblock %}
+
+{% block content %}
+<section class="section">
+    <header class="section-header">
+        <h2>Voluntarios</h2>
+        <p>Postulantes y docentes voluntarios del programa.</p>
+        <a href="{% url 'volunteer_create' %}" class="btn-primary">Nuevo voluntario</a>
+    </header>
+
+    <div class="table-card">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>DNI</th>
+                    <th>Nombre completo</th>
+                    <th>Especialidad</th>
+                    <th>Estado</th>
+                    <th>Contacto</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for v in volunteers %}
+                <tr>
+                    <td>{{ v.dni }}</td>
+                    <td>{{ v.firstname }} {{ v.lastname }}</td>
+                    <td>{{ v.specialty }}</td>
+                    <td><span class="badge badge-status-{{ v.status|lower|slugify }}">{{ v.status }}</span></td>
+                    <td>{{ v.email }}</td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="5" class="empty-row">No hay voluntarios registrados.</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

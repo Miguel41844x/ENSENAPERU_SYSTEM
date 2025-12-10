@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Asignaciones · ENSENAPERU{% endblock %}
+
+{% block content %}
+<section class="section">
+    <header class="section-header">
+        <h2>Asignaciones de voluntarios</h2>
+        <p>Relación voluntario – escuela – convenio – rol.</p>
+        <a href="{% url 'assignment_create' %}" class="btn-primary">Nueva asignación</a>
+    </header>
+
+    <div class="table-card">
+        <table class="data-table">
+            <thead>
+            <tr>
+                <th>Voluntario</th>
+                <th>Escuela</th>
+                <th>Rol</th>
+                <th>Inicio</th>
+                <th>Fin</th>
+                <th>Estado</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for a in assignments %}
+                <tr>
+                    <td>{{ a.volunteer.firstname }} {{ a.volunteer.lastname }}</td>
+                    <td>{{ a.school.name }}</td>
+                    <td>{{ a.role }}</td>
+                    <td>{{ a.startdate }}</td>
+                    <td>{{ a.enddate }}</td>
+                    <td><span class="badge badge-status-{{ a.assignmentstatus|lower|slugify }}">{{ a.assignmentstatus }}</span></td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="6" class="empty-row">No hay asignaciones registradas.</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

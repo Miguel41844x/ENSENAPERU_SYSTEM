@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Registrar voluntario · ENSENAPERU{% endblock %}
+
+{% block content %}
+<section class="section">
+    <header class="section-header">
+        <h2>Registro de voluntario</h2>
+        <p>Datos personales y académicos del voluntario postulante.</p>
+    </header>
+
+    <form method="post" class="form card">
+        {% csrf_token %}
+        <div class="form-grid">
+            {% for field in form %}
+                <div class="form-group {% if field.name in 'experiencetext' %}form-group-full{% endif %}">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {{ field.errors }}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="form-actions">
+            <a href="{% url 'volunteer_list' %}" class="btn-ghost">Cancelar</a>
+            <button type="submit" class="btn-primary">Guardar</button>
+        </div>
+    </form>
+</section>
+{% endblock %}

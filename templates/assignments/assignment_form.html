@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Nueva asignación · ENSENAPERU{% endblock %}
+
+{% block content %}
+<section class="section">
+    <header class="section-header">
+        <h2>Crear asignación</h2>
+        <p>Solo voluntarios aprobados y escuelas con convenio activo pueden ser asignados.</p>
+    </header>
+
+    <form method="post" class="form card">
+        {% csrf_token %}
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="id_volunteer">Voluntario (Approved)</label>
+                {{ form.volunteer }}
+                {{ form.volunteer.errors }}
+            </div>
+            <div class="form-group">
+                <label for="id_school">Escuela (con convenio activo)</label>
+                {{ form.school }}
+                {{ form.school.errors }}
+            </div>
+            <div class="form-group">
+                <label for="id_startdate">Fecha inicio</label>
+                {{ form.startdate }}
+                {{ form.startdate.errors }}
+            </div>
+            <div class="form-group">
+                <label for="id_enddate">Fecha fin</label>
+                {{ form.enddate }}
+                {{ form.enddate.errors }}
+            </div>
+            <div class="form-group form-group-full">
+                <label for="id_role">Rol</label>
+                {{ form.role }}
+                {{ form.role.errors }}
+            </div>
+        </div>
+        <div class="form-actions">
+            <a href="{% url 'assignment_list' %}" class="btn-ghost">Cancelar</a>
+            <button type="submit" class="btn-primary">Guardar asignación</button>
+        </div>
+    </form>
+</section>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Registrar evaluación · ENSENAPERU{% endblock %}
+
+{% block content %}
+<section class="section">
+    <header class="section-header">
+        <h2>Registro de evaluación académica</h2>
+        <p>La base de datos creará planes de refuerzo cuando la nota sea menor a 11.</p>
+    </header>
+
+    <form method="post" class="form card">
+        {% csrf_token %}
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="id_student">Estudiante</label>
+                {{ form.student }}
+                {{ form.student.errors }}
+            </div>
+            <div class="form-group">
+                <label for="id_session">Sesión</label>
+                {{ form.session }}
+                {{ form.session.errors }}
+            </div>
+            <div class="form-group">
+                <label for="id_evaltype">Tipo</label>
+                {{ form.evaltype }}
+                {{ form.evaltype.errors }}
+            </div>
+            <div class="form-group">
+                <label for="id_score">Nota (0–20)</label>
+                {{ form.score }}
+                {{ form.score.errors }}
+            </div>
+            <div class="form-group">
+                <label for="id_attendanceflag">Asistencia</label>
+                {{ form.attendanceflag }}
+                {{ form.attendanceflag.errors }}
+            </div>
+            <div class="form-group form-group-full">
+                <label for="id_comments">Comentarios</label>
+                {{ form.comments }}
+                {{ form.comments.errors }}
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <a href="{% url 'evaluation_list' %}" class="btn-ghost">Cancelar</a>
+            <button type="submit" class="btn-primary">Guardar evaluación</button>
+        </div>
+    </form>
+</section>
+{% endblock %}
