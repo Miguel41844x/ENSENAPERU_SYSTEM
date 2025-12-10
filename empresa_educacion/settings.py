@@ -52,8 +52,8 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.oracle",
         "NAME": os.environ.get("ORACLE_DSN", "localhost:1521/FREEPDB1"),
-        "USER": os.environ.get("ORACLE_USER", "ENSENAPERU"),
-        "PASSWORD": os.environ.get("ORACLE_PASSWORD", "ABD_GRUPO4"),
+        "USER": os.environ.get("ORACLE_USER", "system"),
+        "PASSWORD": os.environ.get("ORACLE_PASSWORD", "oracle"),
     }
 }
 
