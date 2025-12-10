@@ -8,7 +8,7 @@ class RegistrationForm(forms.Form):
     username = forms.CharField(max_length=50, label="Usuario")
     email = forms.EmailField(label="Correo electrónico")
     first_name = forms.CharField(max_length=50, label="Nombre", required=False)
-    last_name = forms.CharField(max_length=50, label="Apellido", required=False)
+    last_name = forms.CharField(max_length=50, label="Apellidos", required=False)
     role = forms.CharField(max_length=20, label="Rol")
     password1 = forms.CharField(label="Contraseña", widget=forms.PasswordInput)
     password2 = forms.CharField(label="Confirmar contraseña", widget=forms.PasswordInput)

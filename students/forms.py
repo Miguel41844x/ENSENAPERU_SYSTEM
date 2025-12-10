@@ -14,6 +14,14 @@ class StudentForm(forms.ModelForm):
             "last_name",
             "birthdate",
         ]
+        labels = {
+            "school": "Escuela",
+            "student_code": "Código de estudiante",
+            "dni": "DNI",
+            "first_name": "Nombres",
+            "last_name": "Apellidos",
+            "birthdate": "Fecha de nacimiento",
+        }
         widgets = {"birthdate": forms.DateInput(attrs={"type": "date"})}
 
     def __init__(self, *args, **kwargs):

@@ -13,6 +13,13 @@ class StudentEvaluationForm(forms.ModelForm):
             "score",
             "comments",
         ]
+        labels = {
+            "student": "Estudiante",
+            "session": "Sesión",
+            "eval_type": "Tipo de evaluación",
+            "score": "Puntaje",
+            "comments": "Comentarios",
+        }
         widgets = {
             "score": forms.NumberInput(attrs={"step": "0.1"}),
         }
