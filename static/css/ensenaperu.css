@@ -100,6 +100,15 @@ body {
     transform: translateY(-1px);
 }
 
+.topnav-user {
+    font-size: 12px;
+    padding: 6px 12px;
+    color: var(--text-muted);
+    border: 1px solid var(--border-soft);
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.75);
+}
+
 /* Layout */
 
 .page {
