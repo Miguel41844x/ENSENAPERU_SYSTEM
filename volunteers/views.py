@@ -1,7 +1,8 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db import IntegrityError
 from django.db.models import Q
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 
 from core.models import Volunteer
 from .forms import VolunteerForm
@@ -51,3 +52,15 @@ def volunteer_create(request):
     else:
         form = VolunteerForm()
     return render(request, "volunteers/volunteer_form.html", {"form": form})
+
+
+@login_required
+def volunteer_delete(request, volunteer_id):
+    volunteer = get_object_or_404(Volunteer, pk=volunteer_id)
+    if request.method == "POST":
+        try:
+            volunteer.delete()
+            messages.success(request, "Voluntario eliminado correctamente.")
+        except IntegrityError:
+            messages.error(request, "No se puede eliminar el voluntario porque tiene registros asociados.")
+        return redirect("volunteer_list")

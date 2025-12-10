@@ -1,7 +1,8 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db import IntegrityError
 from django.db.models import Q
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 
 from core.models import Assignment
 from .forms import AssignmentForm
@@ -53,3 +54,15 @@ def assignment_create(request):
     else:
         form = AssignmentForm()
     return render(request, "assignments/assignment_form.html", {"form": form})
+
+
+@login_required
+def assignment_delete(request, assignment_id):
+    assignment = get_object_or_404(Assignment, pk=assignment_id)
+    if request.method == "POST":
+        try:
+            assignment.delete()
+            messages.success(request, "Asignación eliminada correctamente.")
+        except IntegrityError:
+            messages.error(request, "No se puede eliminar la asignación porque tiene dependencias asociadas.")
+        return redirect("assignment_list")
