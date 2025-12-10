@@ -1,102 +1,59 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ template_title }} | {{ company_name }}</title>
-    <style>
-        :root {
-            color-scheme: light dark;
-            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        }
-        body {
-            margin: 0;
-            padding: 0;
-            display: grid;
-            min-height: 100vh;
-            background: radial-gradient(circle at 10% 20%, rgba(99,102,241,0.15), transparent 25%),
-                        radial-gradient(circle at 90% 10%, rgba(16,185,129,0.12), transparent 20%),
-                        radial-gradient(circle at 30% 80%, rgba(236,72,153,0.10), transparent 25%),
-                        linear-gradient(180deg, rgba(15,23,42,0.92), rgba(2,6,23,0.96));
-            color: #e5e7eb;
-            place-items: center;
-        }
-        .container {
-            width: min(900px, 95vw);
-            background: rgba(17, 24, 39, 0.75);
-            border: 1px solid rgba(148, 163, 184, 0.25);
-            border-radius: 24px;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.35);
-            padding: 32px;
-            backdrop-filter: blur(12px);
-        }
-        h1 {
-            margin-top: 0;
-            margin-bottom: 12px;
-            font-size: clamp(28px, 5vw, 36px);
-            letter-spacing: -0.02em;
-            color: #c7d2fe;
-        }
-        p {
-            line-height: 1.7;
-            color: #e2e8f0;
-        }
-        .actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-top: 24px;
-        }
-        .button {
-            background: linear-gradient(135deg, #6366f1, #22c55e);
-            color: #0b1224;
-            padding: 12px 18px;
-            border-radius: 12px;
-            font-weight: 700;
-            text-decoration: none;
-            box-shadow: 0 12px 30px rgba(99,102,241,0.35);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 14px 34px rgba(99,102,241,0.45);
-        }
-        .panel {
-            background: rgba(255,255,255,0.02);
-            border: 1px dashed rgba(148, 163, 184, 0.35);
-            border-radius: 16px;
-            padding: 18px;
-            margin-top: 20px;
-            color: #cbd5e1;
-        }
-        textarea {
-            width: 100%;
-            min-height: 120px;
-            padding: 12px;
-            background: rgba(15,23,42,0.8);
-            border: 1px solid rgba(148, 163, 184, 0.35);
-            border-radius: 12px;
-            color: #e2e8f0;
-            resize: vertical;
-            font-family: inherit;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
 </head>
 <body>
-<div class="container">
-    <h1>{{ company_name }}</h1>
-    <p>{{ editable_note }}</p>
+    <div class="page">
+        <header>
+            <div class="eyebrow">Panel inicial • Plantilla mejorada</div>
+            <div class="highlight">Listo para personalizar tu escuela online</div>
+            <h1 class="hero-title">{{ company_name }}</h1>
+            <p class="lead">{{ editable_note }}</p>
+            <div class="actions">
+                <a class="button" href="/admin/">Ir al panel de administración</a>
+                <a class="button secondary" href="https://docs.djangoproject.com/" target="_blank" rel="noopener">Documentación de Django</a>
+            </div>
+        </header>
 
-    <div class="panel">
-        <p>Esta plantilla está lista para que agregues secciones de cursos, horarios y control de matrícula.</p>
-        <p>Usa el siguiente cuadro para anotar ideas rápidas o pegar fragmentos que luego moverás a tus vistas.</p>
-        <textarea placeholder="Escribe aquí el contenido que quieras visualizar en el panel principal..."></textarea>
-    </div>
+        <section class="grid">
+            <article class="card">
+                <h2>🚀 Primeros pasos</h2>
+                <p>Añade aquí la información principal de tu oferta educativa y comienza a mostrarla a tus estudiantes.</p>
+                <ul class="list">
+                    <li>🗂️ Crea modelos para cursos, horarios y matrículas.</li>
+                    <li>🧑‍🏫 Agrega instructores con experiencia y fotos de perfil.</li>
+                    <li>📝 Usa vistas y formularios para que los alumnos se inscriban.</li>
+                </ul>
+            </article>
 
-    <div class="actions">
-        <a class="button" href="/admin/">Ir al panel de administración</a>
-        <a class="button" href="https://docs.djangoproject.com/" target="_blank" rel="noopener">Documentación de Django</a>
+            <article class="card">
+                <h2>🧠 Ideas rápidas</h2>
+                <p class="note-label">Escribe contenido de referencia para tu panel principal:</p>
+                <textarea placeholder="Describe tus cursos estrella, próximos talleres o mensajes para estudiantes."></textarea>
+                <div class="badge">Tus notas no se guardan, ¡cópialas antes de recargar!</div>
+            </article>
+
+            <article class="card">
+                <h2>📌 Próximos pasos</h2>
+                <ul class="list">
+                    <li>🎨 Ajusta los colores y logos para reflejar la identidad de tu institución.</li>
+                    <li>🧭 Define la navegación con menús para cursos, alumnos y reportes.</li>
+                    <li>🔐 Configura permisos de usuario para tu equipo administrativo.</li>
+                    <li>💾 Activa la base de datos que prefieras en <code>settings.py</code>.</li>
+                </ul>
+            </article>
+        </section>
+
+        <div class="footer-links">
+            <a href="https://www.figma.com/community" target="_blank" rel="noopener">Inspírate en Figma</a>
+            <a href="https://tailwindcss.com/docs" target="_blank" rel="noopener">Guía de Tailwind</a>
+            <a href="https://designsystemsrepo.com/" target="_blank" rel="noopener">Design Systems Repo</a>
+        </div>
     </div>
-</div>
 </body>
 </html>
