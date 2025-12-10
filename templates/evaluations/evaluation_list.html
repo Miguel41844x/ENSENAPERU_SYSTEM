@@ -11,6 +11,25 @@
         <a class="btn-primary" href="{% url 'evaluation_create' %}">Nueva evaluación</a>
     </header>
 
+    <form method="get" class="filter-bar">
+        <input
+            type="search"
+            name="q"
+            placeholder="Buscar por estudiante, usuario o tipo"
+            value="{{ search_query }}"
+        />
+        <label class="filter-select">
+            Ordenar por
+            <select name="order">
+                <option value="recent" {% if order_param == 'recent' %}selected{% endif %}>Más recientes</option>
+                <option value="score" {% if order_param == 'score' %}selected{% endif %}>Puntaje</option>
+                <option value="student" {% if order_param == 'student' %}selected{% endif %}>Estudiante</option>
+            </select>
+        </label>
+        <button class="btn-secondary" type="submit">Aplicar</button>
+        <span class="help-text">Mostrando hasta 100 resultados.</span>
+    </form>
+
     <div class="table-card">
         <table class="data-table">
             <thead>

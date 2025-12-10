@@ -11,6 +11,25 @@
         <a class="btn-primary" href="{% url 'student_create' %}">Nuevo estudiante</a>
     </header>
 
+    <form method="get" class="filter-bar">
+        <input
+            type="search"
+            name="q"
+            placeholder="Buscar por nombre, código o escuela"
+            value="{{ search_query }}"
+        />
+        <label class="filter-select">
+            Ordenar por
+            <select name="order">
+                <option value="name" {% if order_param == 'name' %}selected{% endif %}>Nombre</option>
+                <option value="dni" {% if order_param == 'dni' %}selected{% endif %}>DNI</option>
+                <option value="school" {% if order_param == 'school' %}selected{% endif %}>Escuela</option>
+            </select>
+        </label>
+        <button class="btn-secondary" type="submit">Aplicar</button>
+        <span class="help-text">Mostrando hasta 100 resultados.</span>
+    </form>
+
     <div class="table-card">
         <table class="data-table">
             <thead>

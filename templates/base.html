@@ -47,5 +47,34 @@
     <footer class="footer">
         <p>Interfaces de referencia en construcción. Los formularios escriben sobre la base existente.</p>
     </footer>
+
+    {% block scripts %}
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                document.querySelectorAll("select.searchable-select").forEach((select) => {
+                    if (select.dataset.enhanced === "true") {
+                        return;
+                    }
+                    select.dataset.enhanced = "true";
+
+                    const searchInput = document.createElement("input");
+                    searchInput.type = "search";
+                    searchInput.placeholder = select.getAttribute("data-placeholder") || "Buscar opción";
+                    searchInput.className = "select-search-input";
+
+                    searchInput.addEventListener("input", () => {
+                        const query = searchInput.value.trim().toLowerCase();
+                        select.querySelectorAll("option").forEach((option) => {
+                            const text = option.textContent.toLowerCase();
+                            option.hidden = query !== "" && !text.includes(query);
+                        });
+                    });
+
+                    const parent = select.parentElement;
+                    parent.insertBefore(searchInput, select);
+                });
+            });
+        </script>
+    {% endblock %}
 </body>
 </html>

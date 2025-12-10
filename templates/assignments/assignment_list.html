@@ -11,6 +11,26 @@
         <a class="btn-primary" href="{% url 'assignment_create' %}">Nueva asignación</a>
     </header>
 
+    <form method="get" class="filter-bar">
+        <input
+            type="search"
+            name="q"
+            placeholder="Buscar por voluntario, escuela o rol"
+            value="{{ search_query }}"
+        />
+        <label class="filter-select">
+            Ordenar por
+            <select name="order">
+                <option value="start_desc" {% if order_param == 'start_desc' %}selected{% endif %}>Inicio (reciente primero)</option>
+                <option value="start_asc" {% if order_param == 'start_asc' %}selected{% endif %}>Inicio (antiguo primero)</option>
+                <option value="volunteer" {% if order_param == 'volunteer' %}selected{% endif %}>Voluntario</option>
+                <option value="school" {% if order_param == 'school' %}selected{% endif %}>Escuela</option>
+            </select>
+        </label>
+        <button class="btn-secondary" type="submit">Aplicar</button>
+        <span class="help-text">Mostrando hasta 100 resultados.</span>
+    </form>
+
     <div class="table-card">
         <table class="data-table">
             <thead>
