@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 
-from core.models import StudentEvaluation
+from core.models import AppUser, StudentEvaluation
 from .forms import StudentEvaluationForm
 
 
@@ -23,7 +23,9 @@ def evaluation_create(request):
     if request.method == "POST":
         form = StudentEvaluationForm(request.POST)
         if form.is_valid():
-            form.save()
+            evaluation = form.save(commit=False)
+            evaluation.created_by_user = AppUser.objects.filter(username=request.user.username).first()
+            evaluation.save()
             messages.success(request, "Evaluación registrada correctamente.")
             return redirect("evaluation_list")
     else:

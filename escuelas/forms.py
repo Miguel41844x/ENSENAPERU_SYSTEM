@@ -7,7 +7,6 @@ class SchoolForm(forms.ModelForm):
     class Meta:
         model = School
         fields = [
-            "school_id",
             "name",
             "location",
             "main_contact_name",
@@ -15,7 +14,6 @@ class SchoolForm(forms.ModelForm):
             "status",
         ]
         labels = {
-            "school_id": "ID",
             "name": "Nombre",
             "location": "Ubicación",
             "main_contact_name": "Contacto principal",
@@ -29,7 +27,6 @@ class AgreementForm(forms.ModelForm):
     class Meta:
         model = Agreement
         fields = [
-            "agreement_id",
             "school",
             "status",
             "file_path",

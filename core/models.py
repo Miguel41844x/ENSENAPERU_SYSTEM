@@ -9,7 +9,7 @@ from django.db import models
 
 
 class Agreement(models.Model):
-    agreement_id = models.IntegerField(primary_key=True)
+    agreement_id = models.AutoField(primary_key=True)
     school = models.ForeignKey('School', models.DO_NOTHING)
     status = models.CharField(max_length=20, blank=True, null=True)
     file_path = models.CharField(max_length=255, blank=True, null=True)
@@ -22,7 +22,7 @@ class Agreement(models.Model):
 
 
 class AppUser(models.Model):
-    user_id = models.IntegerField(primary_key=True)
+    user_id = models.AutoField(primary_key=True)
     username = models.CharField(unique=True, max_length=50)
     password_hash = models.CharField(max_length=255)
     first_name = models.CharField(max_length=50, blank=True, null=True)
@@ -37,7 +37,7 @@ class AppUser(models.Model):
 
 
 class Assignment(models.Model):
-    assignment_id = models.IntegerField(primary_key=True)
+    assignment_id = models.AutoField(primary_key=True)
     volunteer = models.ForeignKey('Volunteer', models.DO_NOTHING)
     agreement = models.ForeignKey(Agreement, models.DO_NOTHING)
     start_date = models.DateField()
@@ -135,7 +135,7 @@ class AuthUserUserPermissions(models.Model):
 
 
 class ClassSession(models.Model):
-    session_id = models.IntegerField(primary_key=True)
+    session_id = models.AutoField(primary_key=True)
     program = models.ForeignKey('Program', models.DO_NOTHING)
     session_date = models.DateTimeField()
     topic = models.CharField(max_length=200)
@@ -146,7 +146,7 @@ class ClassSession(models.Model):
 
 
 class Cohort(models.Model):
-    cohort_id = models.IntegerField(primary_key=True)
+    cohort_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50)
     year = models.IntegerField()
     period = models.CharField(max_length=50, blank=True, null=True)
@@ -202,7 +202,7 @@ class DjangoSession(models.Model):
 
 
 class EvaluationType(models.Model):
-    eval_type_id = models.IntegerField(primary_key=True)
+    eval_type_id = models.AutoField(primary_key=True)
     name = models.CharField(unique=True, max_length=50)
     description = models.CharField(max_length=150, blank=True, null=True)
 
@@ -223,7 +223,7 @@ class Help(models.Model):
 
 
 class Program(models.Model):
-    program_id = models.IntegerField(primary_key=True)
+    program_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
     start_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
@@ -235,7 +235,7 @@ class Program(models.Model):
 
 
 class ProjectExpense(models.Model):
-    expense_id = models.IntegerField(primary_key=True)
+    expense_id = models.AutoField(primary_key=True)
     program = models.ForeignKey(Program, models.DO_NOTHING, blank=True, null=True)
     school = models.ForeignKey('School', models.DO_NOTHING, blank=True, null=True)
     description = models.CharField(max_length=200)
@@ -366,7 +366,7 @@ class RedoLog(models.Model):
 
 
 class RemedialPlan(models.Model):
-    plan_id = models.IntegerField(primary_key=True)
+    plan_id = models.AutoField(primary_key=True)
     student = models.ForeignKey('Student', models.DO_NOTHING)
     trigger_eval = models.ForeignKey('StudentEvaluation', models.DO_NOTHING, blank=True, null=True)
     description = models.TextField()
@@ -378,7 +378,7 @@ class RemedialPlan(models.Model):
 
 
 class School(models.Model):
-    school_id = models.IntegerField(primary_key=True)
+    school_id = models.AutoField(primary_key=True)
     name = models.CharField(unique=True, max_length=100)
     location = models.CharField(max_length=150, blank=True, null=True)
     main_contact_name = models.CharField(max_length=100, blank=True, null=True)
@@ -390,7 +390,7 @@ class School(models.Model):
         db_table = 'school'
 
 class Student(models.Model):
-    student_id = models.IntegerField(primary_key=True)
+    student_id = models.AutoField(primary_key=True)
     school = models.ForeignKey(School, models.DO_NOTHING)
     student_code = models.CharField(unique=True, max_length=20, blank=True, null=True)
     dni = models.CharField(unique=True, max_length=15, blank=True, null=True)
@@ -404,7 +404,7 @@ class Student(models.Model):
 
 
 class StudentEnrollment(models.Model):
-    enrollment_id = models.IntegerField(primary_key=True)
+    enrollment_id = models.AutoField(primary_key=True)
     student = models.ForeignKey(Student, models.DO_NOTHING)
     cohort = models.ForeignKey(Cohort, models.DO_NOTHING)
     grade = models.CharField(max_length=20)
@@ -419,7 +419,7 @@ class StudentEnrollment(models.Model):
 
 
 class StudentEvaluation(models.Model):
-    stu_eval_id = models.IntegerField(primary_key=True)
+    stu_eval_id = models.AutoField(primary_key=True)
     student = models.ForeignKey(Student, models.DO_NOTHING)
     session = models.ForeignKey(ClassSession, models.DO_NOTHING)
     eval_type = models.CharField(max_length=50, blank=True, null=True)
@@ -433,7 +433,7 @@ class StudentEvaluation(models.Model):
 
 
 class Volunteer(models.Model):
-    volunteer_id = models.IntegerField(primary_key=True)
+    volunteer_id = models.AutoField(primary_key=True)
     dni = models.CharField(unique=True, max_length=15)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
@@ -448,7 +448,7 @@ class Volunteer(models.Model):
 
 
 class VolunteerApplication(models.Model):
-    application_id = models.IntegerField(primary_key=True)
+    application_id = models.AutoField(primary_key=True)
     volunteer = models.ForeignKey(Volunteer, models.DO_NOTHING)
     application_date = models.DateField(blank=True, null=True)
     status = models.CharField(max_length=20, blank=True, null=True)
@@ -460,7 +460,7 @@ class VolunteerApplication(models.Model):
 
 
 class VolunteerEvaluation(models.Model):
-    evaluation_id = models.IntegerField(primary_key=True)
+    evaluation_id = models.AutoField(primary_key=True)
     volunteer = models.ForeignKey(Volunteer, models.DO_NOTHING)
     eval_type = models.ForeignKey(EvaluationType, models.DO_NOTHING)
     evaluator_user = models.ForeignKey(AppUser, models.DO_NOTHING, blank=True, null=True)
