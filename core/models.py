@@ -20,6 +20,10 @@ class Agreement(models.Model):
         managed = False
         db_table = 'agreement'
 
+    def __str__(self):
+        school_name = getattr(self.school, "name", None) or "Sin escuela"
+        return f"{school_name} (ID {self.agreement_id})"
+
 
 class AppUser(models.Model):
     user_id = models.AutoField(primary_key=True)
@@ -144,6 +148,11 @@ class ClassSession(models.Model):
         managed = False
         db_table = 'class_session'
 
+    def __str__(self):
+        program_name = getattr(self.program, "name", None) or "Sesión"
+        date_part = self.session_date.strftime("%Y-%m-%d") if self.session_date else "sin fecha"
+        return f"{program_name} · {date_part}"
+
 
 class Cohort(models.Model):
     cohort_id = models.AutoField(primary_key=True)
@@ -232,6 +241,9 @@ class Program(models.Model):
     class Meta:
         managed = False
         db_table = 'program'
+
+    def __str__(self):
+        return self.name
 
 
 class ProjectExpense(models.Model):
@@ -389,6 +401,9 @@ class School(models.Model):
         managed = False
         db_table = 'school'
 
+    def __str__(self):
+        return self.name
+
 class Student(models.Model):
     student_id = models.AutoField(primary_key=True)
     school = models.ForeignKey(School, models.DO_NOTHING)
@@ -401,6 +416,13 @@ class Student(models.Model):
     class Meta:
         managed = False
         db_table = 'student'
+
+    def __str__(self):
+        parts = [self.last_name, self.first_name]
+        name = ", ".join(filter(None, parts)) if any(parts) else str(self.student_id)
+        if self.student_code:
+            return f"{name} · {self.student_code}"
+        return name
 
 
 class StudentEnrollment(models.Model):
@@ -445,6 +467,10 @@ class Volunteer(models.Model):
     class Meta:
         managed = False
         db_table = 'volunteer'
+
+    def __str__(self):
+        name = ", ".join(filter(None, [self.last_name, self.first_name]))
+        return name or str(self.volunteer_id)
 
 
 class VolunteerApplication(models.Model):
