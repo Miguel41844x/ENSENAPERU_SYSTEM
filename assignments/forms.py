@@ -7,7 +7,6 @@ class AssignmentForm(forms.ModelForm):
     class Meta:
         model = Assignment
         fields = [
-            "assignment_id",
             "volunteer",
             "agreement",
             "start_date",

@@ -7,7 +7,6 @@ class VolunteerForm(forms.ModelForm):
     class Meta:
         model = Volunteer
         fields = [
-            "volunteer_id",
             "dni",
             "first_name",
             "last_name",
