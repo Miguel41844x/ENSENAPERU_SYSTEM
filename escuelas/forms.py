@@ -14,6 +14,14 @@ class SchoolForm(forms.ModelForm):
             "main_contact_phone",
             "status",
         ]
+        labels = {
+            "school_id": "ID",
+            "name": "Nombre",
+            "location": "Ubicación",
+            "main_contact_name": "Contacto principal",
+            "main_contact_phone": "Teléfono de contacto",
+            "status": "Estado",
+        }
         widgets = {"status": forms.Select(choices=[("ACTIVA", "Activa"), ("INACTIVA", "Inactiva")])}
 
 

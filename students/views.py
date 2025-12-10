@@ -1,15 +1,18 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 
 from core.models import Student
 from .forms import StudentForm
 
 
+@login_required
 def student_list(request):
     students = Student.objects.select_related("school").order_by("last_name", "first_name")
     return render(request, "students/student_list.html", {"students": students})
 
 
+@login_required
 def student_create(request):
     if request.method == "POST":
         form = StudentForm(request.POST)

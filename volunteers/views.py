@@ -1,15 +1,18 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 
 from core.models import Volunteer
 from .forms import VolunteerForm
 
 
+@login_required
 def volunteer_list(request):
     volunteers = Volunteer.objects.all().order_by("last_name", "first_name")
     return render(request, "volunteers/volunteer_list.html", {"volunteers": volunteers})
 
 
+@login_required
 def volunteer_create(request):
     if request.method == "POST":
         form = VolunteerForm(request.POST)
