@@ -3,13 +3,16 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth import views as auth_views, logout
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db import DatabaseError, transaction
+from django.db.models import Max
+from django.db import DatabaseError, transaction, IntegrityError
 from django.views.generic import TemplateView
 from django.shortcuts import redirect, render
+import logging
 
 from core.models import AppUser, Assignment, School, Student, Volunteer
 from .forms import RegistrationForm
 
+logger = logging.getLogger(__name__)
 
 class DashboardView(LoginRequiredMixin, TemplateView):
     template_name = "dashboard.html"
@@ -44,7 +47,7 @@ def SignOutView(request):
     return redirect("login")
 
 
-def register(request):
+def register(request): 
     if request.user.is_authenticated:
         return redirect("dashboard")
 
@@ -53,8 +56,10 @@ def register(request):
         if form.is_valid():
             data = form.cleaned_data
             user_model = get_user_model()
+            role = data.get("role")
             try:
                 with transaction.atomic():
+                    # Usuario de Django
                     user_model.objects.create_user(
                         username=data["username"],
                         email=data["email"],
@@ -62,19 +67,32 @@ def register(request):
                         first_name=data.get("first_name", ""),
                         last_name=data.get("last_name", ""),
                     )
+
+                    last_id = AppUser.objects.aggregate(Max("user_id"))["user_id__max"] or 0
+                    new_id = last_id + 1
+
+                    # Usuario en tu tabla APP_USER
                     AppUser.objects.create(
+                        user_id=new_id,
                         username=data["username"],
                         password_hash=make_password(data["password1"]),
                         first_name=data.get("first_name", ""),
                         last_name=data.get("last_name", ""),
                         email=data["email"],
-                        role=data["role"],
+                        role=role,
                         active_flag=True,
                     )
+
                 messages.success(request, "Usuario registrado correctamente. Ya puedes iniciar sesión.")
                 return redirect("login")
-            except Exception:
-                form.add_error(None, "Ocurrió un error al registrar el usuario. Inténtalo nuevamente.")
+
+            except IntegrityError as e:
+                logger.exception("Error de integridad al registrar usuario")
+                form.add_error(None, f"Error de integridad al registrar el usuario: {e}")
+
+            except Exception as e:
+                logger.exception("Error inesperado al registrar usuario")
+                form.add_error(None, f"Ocurrió un error inesperado: {e}")
     else:
         form = RegistrationForm()
 
