@@ -41,13 +41,21 @@ class AppUser(models.Model):
 
 
 class Assignment(models.Model):
+    STATUS_PENDING = "Pending"
+    STATUS_ACCEPTED = "Accepted"
+
+    STATUS_CHOICES = [
+        (STATUS_ACCEPTED, "Accepted"),
+        (STATUS_PENDING, "Pending"),
+    ]
+
     assignment_id = models.AutoField(primary_key=True)
     volunteer = models.ForeignKey('Volunteer', models.DO_NOTHING)
     agreement = models.ForeignKey(Agreement, models.DO_NOTHING)
     start_date = models.DateField()
     end_date = models.DateField()
     role = models.CharField(max_length=50)
-    status = models.CharField(max_length=20, blank=True, null=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -390,12 +398,24 @@ class RemedialPlan(models.Model):
 
 
 class School(models.Model):
+    STATUS_PROSPECT = "Prospect"
+    STATUS_ACTIVE = "Active"
+    STATUS_INACTIVE = "Inactive"
+    STATUS_CLOSED = "Closed"
+
+    STATUS_CHOICES = [
+        (STATUS_PROSPECT, "Prospect"),
+        (STATUS_ACTIVE, "Active"),
+        (STATUS_INACTIVE, "Inactive"),
+        (STATUS_CLOSED, "Closed"),
+    ]
+
     school_id = models.AutoField(primary_key=True)
     name = models.CharField(unique=True, max_length=100)
     location = models.CharField(max_length=150, blank=True, null=True)
     main_contact_name = models.CharField(max_length=100, blank=True, null=True)
     main_contact_phone = models.CharField(max_length=15, blank=True, null=True)
-    status = models.CharField(max_length=20)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES)
 
     class Meta:
         managed = False
@@ -455,6 +475,20 @@ class StudentEvaluation(models.Model):
 
 
 class Volunteer(models.Model):
+    STATUS_APPLICANT = "Applicant"
+    STATUS_IN_REVIEW = "In Review"
+    STATUS_APPROVED = "Approved"
+    STATUS_REJECTED = "Rejected"
+    STATUS_WITHDRAWN = "Withdrawn"
+
+    STATUS_CHOICES = [
+        (STATUS_APPLICANT, "Applicant"),
+        (STATUS_IN_REVIEW, "In Review"),
+        (STATUS_APPROVED, "Approved"),
+        (STATUS_REJECTED, "Rejected"),
+        (STATUS_WITHDRAWN, "Withdrawn"),
+    ]
+
     volunteer_id = models.AutoField(primary_key=True)
     dni = models.CharField(unique=True, max_length=15)
     first_name = models.CharField(max_length=50)
@@ -462,7 +496,7 @@ class Volunteer(models.Model):
     phone = models.CharField(max_length=15, blank=True, null=True)
     email = models.CharField(unique=True, max_length=100)
     specialty = models.CharField(max_length=50, blank=True, null=True)
-    status = models.CharField(max_length=20)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES)
 
     class Meta:
         managed = False
