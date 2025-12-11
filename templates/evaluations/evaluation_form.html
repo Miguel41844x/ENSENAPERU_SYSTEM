@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Registrar evaluación · ENSEÑA PERU{% endblock %}
+
+{% block content %}
+<section class="section narrow">
+    <header class="section-header">
+        <h2>Nueva evaluación</h2>
+        <p>Registra el resultado de una sesión o tipo de evaluación específico.</p>
+    </header>
+    <p class="help-text">Las listas de selección muestran hasta 100 registros. Usa la barra de búsqueda para encontrar al estudiante o sesión.</p>
+    <div class="card">
+        <form method="post" class="form">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <div class="form-grid">
+                {% for field in form %}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}<div class="field-errors">{{ field.errors }}</div>{% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">Guardar</button>
+                <a class="btn-secondary" href="{% url 'evaluation_list' %}">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}

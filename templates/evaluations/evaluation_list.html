@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block title %}Evaluaciones · ENSEÑA PERU{% endblock %}
+
+{% block content %}
+<section class="section">
+    <header class="section-header">
+        <div>
+            <h2>Evaluaciones de estudiantes</h2>
+            <p>Resultados por sesión académica y tipo de evaluación.</p>
+        </div>
+        <a class="btn-primary" href="{% url 'evaluation_create' %}">Nueva evaluación</a>
+    </header>
+
+    <form method="get" class="filter-bar">
+        <input
+            type="search"
+            name="q"
+            placeholder="Buscar por estudiante, usuario o tipo"
+            value="{{ search_query }}"
+        />
+        <label class="filter-select">
+            Ordenar por
+            <select name="order">
+                <option value="recent" {% if order_param == 'recent' %}selected{% endif %}>Más recientes</option>
+                <option value="score" {% if order_param == 'score' %}selected{% endif %}>Puntaje</option>
+                <option value="student" {% if order_param == 'student' %}selected{% endif %}>Estudiante</option>
+            </select>
+        </label>
+        <button class="btn-secondary" type="submit">Aplicar</button>
+        <span class="help-text">Mostrando hasta 100 resultados.</span>
+    </form>
+
+    <div class="table-card">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Estudiante</th>
+                    <th>Sesión</th>
+                    <th>Tipo</th>
+                    <th>Puntaje</th>
+                    <th>Creado por</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for evaluation in evaluations %}
+                    <tr>
+                        <td>{{ evaluation.stu_eval_id }}</td>
+                        <td>{{ evaluation.student.first_name }} {{ evaluation.student.last_name }}</td>
+                        <td>{{ evaluation.session.session_date|date:"d/m/Y H:i" }}</td>
+                        <td>{{ evaluation.eval_type }}</td>
+                        <td>{{ evaluation.score|default:"—" }}</td>
+                        <td>{{ evaluation.created_by_user.username|default:"—" }}</td>
+                        <td class="actions-cell">
+                            <form
+                                method="post"
+                                action="{% url 'evaluation_delete' evaluation.stu_eval_id %}"
+                                class="delete-form"
+                                data-record-name="la evaluación de {{ evaluation.student.first_name }} {{ evaluation.student.last_name }}"
+                            >
+                                {% csrf_token %}
+                                <button type="submit" class="icon-button" aria-label="Eliminar evaluación">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path
+                                            fill="currentColor"
+                                            d="M9 3.5a1.5 1.5 0 0 1 1.5-1.5h3A1.5 1.5 0 0 1 15 3.5V5h4a1 1 0 1 1 0 2h-.57l-1.12 12.27A2.5 2.5 0 0 1 14.83 21H9.17a2.5 2.5 0 0 1-2.48-2.73L5.57 7H5a1 1 0 1 1 0-2h4zm2 .5v1h2v-1zm5.3 3H7.7l1.05 11.5a.5.5 0 0 0 .5.5h5.5a.5.5 0 0 0 .5-.5z"
+                                        />
+                                    </svg>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="7" class="empty-row">No hay evaluaciones registradas.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll(".delete-form").forEach((form) => {
+                form.addEventListener("submit", (event) => {
+                    const name = form.dataset.recordName || "esta evaluación";
+                    const confirmed = confirm(`¿Deseas eliminar ${name}? Esta acción no se puede deshacer.`);
+
+                    if (!confirmed) {
+                        event.preventDefault();
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

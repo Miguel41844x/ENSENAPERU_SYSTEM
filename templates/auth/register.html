@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Crear cuenta · ENSEÑA PERU{% endblock %}
+
+{% block content %}
+<section class="section narrow">
+    <header class="section-header">
+        <h2>Crear una cuenta</h2>
+        <p>Registra tus datos para acceder al panel.</p>
+    </header>
+    <div class="card">
+        <form method="post" class="form">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <div class="form-grid">
+                {% for field in form %}
+                    <div class="form-group form-group-full">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}<div class="field-errors">{{ field.errors }}</div>{% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">Registrar</button>
+                <a class="btn-secondary" href="{% url 'login' %}">Volver a iniciar sesión</a>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}

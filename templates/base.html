@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ENSEÑA PERU{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/ensenaperu.css' %}">
+</head>
+<body>
+    <header class="topbar">
+        <div class="brand">
+            <div class="brand-logo">EN</div>
+            <div class="brand-text">
+                <h1>ENSEÑA PERU</h1>
+                <p>Gestión educativa</p>
+            </div>
+        </div>
+        <nav class="topnav">
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'dashboard' %}">Panel</a>
+
+                <details class="menu-block">
+                    <summary>Personas</summary>
+                    <div class="menu-panel">
+                        <a href="{% url 'volunteer_list' %}">Voluntarios</a>
+                        <a href="{% url 'student_list' %}">Estudiantes</a>
+                    </div>
+                </details>
+
+                <details class="menu-block">
+                    <summary>Centros</summary>
+                    <div class="menu-panel">
+                        <a href="{% url 'school_list' %}">Escuelas</a>
+                        <a href="{% url 'assignment_list' %}">Asignaciones</a>
+                    </div>
+                </details>
+
+                <details class="menu-block">
+                    <summary>Seguimiento</summary>
+                    <div class="menu-panel">
+                        <a href="{% url 'evaluation_list' %}">Evaluaciones</a>
+                    </div>
+                </details>
+
+                <span class="topnav-user">{{ request.user.username }}</span>
+                <a class="btn-secondary" href="{% url 'logout' %}">Salir</a>
+            {% else %}
+                <a class="btn-primary" href="{% url 'login' %}">Iniciar sesión</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main class="page">
+        {% if messages %}
+            <div class="flash-container">
+                {% for message in messages %}
+                    <div class="flash flash-{{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <p>UN MUNDO DE HISTORIAS REALES, DONDE LA EDUCACIÓN TRANSFORMA EL PAÍS.</p>
+    </footer>
+
+    {% block scripts %}
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                document.querySelectorAll("select.searchable-select").forEach((select) => {
+                    if (select.dataset.enhanced === "true") {
+                        return;
+                    }
+                    select.dataset.enhanced = "true";
+
+                    const searchInput = document.createElement("input");
+                    searchInput.type = "search";
+                    searchInput.placeholder = select.getAttribute("data-placeholder") || "Buscar opción";
+                    searchInput.className = "select-search-input";
+
+                    searchInput.addEventListener("input", () => {
+                        const query = searchInput.value.trim().toLowerCase();
+                        select.querySelectorAll("option").forEach((option) => {
+                            const text = option.textContent.toLowerCase();
+                            option.hidden = query !== "" && !text.includes(query);
+                        });
+                    });
+
+                    const parent = select.parentElement;
+                    parent.insertBefore(searchInput, select);
+                });
+            });
+        </script>
+    {% endblock %}
+</body>
+</html>

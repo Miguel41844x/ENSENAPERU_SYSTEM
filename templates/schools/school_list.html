@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block title %}Escuelas · ENSEÑA PERU{% endblock %}
+
+{% block content %}
+<section class="section">
+    <header class="section-header">
+        <div>
+            <h2>Escuelas</h2>
+            <p>Instituciones asociadas al programa.</p>
+        </div>
+        <a class="btn-primary" href="{% url 'school_create' %}">Nueva escuela</a>
+    </header>
+
+    <form method="get" class="filter-bar">
+        <input
+            type="search"
+            name="q"
+            placeholder="Buscar por nombre, ubicación o contacto"
+            value="{{ search_query }}"
+        />
+        <label class="filter-select">
+            Ordenar por
+            <select name="order">
+                <option value="name" {% if order_param == 'name' %}selected{% endif %}>Nombre</option>
+                <option value="location" {% if order_param == 'location' %}selected{% endif %}>Ubicación</option>
+                <option value="status" {% if order_param == 'status' %}selected{% endif %}>Estado</option>
+            </select>
+        </label>
+        <button class="btn-secondary" type="submit">Aplicar</button>
+        <span class="help-text">Mostrando hasta 100 resultados.</span>
+    </form>
+
+    <div class="table-card">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Ubicación</th>
+                    <th>Contacto principal</th>
+                    <th>Teléfono de contacto</th>
+                    <th>Estado</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for school in schools %}
+                    <tr>
+                        <td>{{ school.school_id }}</td>
+                        <td>{{ school.name }}</td>
+                        <td>{{ school.location|default:"—" }}</td>
+                        <td>{{ school.main_contact_name|default:"—" }}</td>
+                        <td>{{ school.main_contact_phone|default:"—" }}</td>
+                        <td>{{ school.status }}</td>
+                        <td class="actions-cell">
+                            <form
+                                method="post"
+                                action="{% url 'school_delete' school.school_id %}"
+                                class="delete-form"
+                                data-record-name="la escuela {{ school.name }}"
+                            >
+                                {% csrf_token %}
+                                <button type="submit" class="icon-button" aria-label="Eliminar escuela">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path
+                                            fill="currentColor"
+                                            d="M9 3.5a1.5 1.5 0 0 1 1.5-1.5h3A1.5 1.5 0 0 1 15 3.5V5h4a1 1 0 1 1 0 2h-.57l-1.12 12.27A2.5 2.5 0 0 1 14.83 21H9.17a2.5 2.5 0 0 1-2.48-2.73L5.57 7H5a1 1 0 1 1 0-2h4zm2 .5v1h2v-1zm5.3 3H7.7l1.05 11.5a.5.5 0 0 0 .5.5h5.5a.5.5 0 0 0 .5-.5z"
+                                        />
+                                    </svg>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="7" class="empty-row">No hay escuelas registradas.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll(".delete-form").forEach((form) => {
+                form.addEventListener("submit", (event) => {
+                    const name = form.dataset.recordName || "este registro";
+                    const confirmed = confirm(`¿Deseas eliminar ${name}? Esta acción no se puede deshacer.`);
+
+                    if (!confirmed) {
+                        event.preventDefault();
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

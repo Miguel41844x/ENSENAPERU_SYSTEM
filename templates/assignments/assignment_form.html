@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Registrar asignación · ENSEÑA PERU{% endblock %}
+
+{% block content %}
+<section class="section narrow">
+    <header class="section-header">
+        <h2>Nueva asignación</h2>
+        <p>Vincula a un voluntario con un convenio y define fechas de inicio y fin.</p>
+    </header>
+    <p class="help-text">Las listas muestran hasta 100 opciones. Usa la barra de búsqueda sobre cada selector para filtrar.</p>
+    <div class="card">
+        <form method="post" class="form">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <div class="form-grid">
+                {% for field in form %}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}<div class="field-errors">{{ field.errors }}</div>{% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">Guardar</button>
+                <a class="btn-secondary" href="{% url 'assignment_list' %}">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}
